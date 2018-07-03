@@ -78,7 +78,7 @@
 
 
 
-  <meta name="keywords" content="javascripte,前端," />
+  <meta name="keywords" content="前端,new,构造函数,继承," />
 
 
 
@@ -89,18 +89,18 @@
 
 
 
-<meta name="description" content="在ES6前， 前端就使用RequireJS或者seaJS实现模块化， requireJS是基于AMD规范的模块化库，  而像seaJS是基于CMD规范的模块化库，  两者都是为了为了推广前端模块化的工具;  现在ES6自带了模块化， 也是JS第一次支持module， 在很久以后 ，我们可以直接作用import和export在浏览器中导入和导出各个模块了， 一个js文件代表一个js模块； 现代浏览器">
-<meta name="keywords" content="javascripte,前端">
+<meta name="description" content="js类的继承 js中，创建一个子类 子类，继承父类的构造函数和原型上的方法 子类原型上添加的方法不影响父类的原型">
+<meta name="keywords" content="前端,new,构造函数,继承">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ES6模块化之import和export">
-<meta property="og:url" content="http://ictony.github.io/2017/06/14/es6-module/index.html">
+<meta property="og:title" content="js类的继承 和 操作符new">
+<meta property="og:url" content="http://ictony.github.io/2017/06/14/inherit-class/index.html">
 <meta property="og:site_name" content="洪建平的博客">
-<meta property="og:description" content="在ES6前， 前端就使用RequireJS或者seaJS实现模块化， requireJS是基于AMD规范的模块化库，  而像seaJS是基于CMD规范的模块化库，  两者都是为了为了推广前端模块化的工具;  现在ES6自带了模块化， 也是JS第一次支持module， 在很久以后 ，我们可以直接作用import和export在浏览器中导入和导出各个模块了， 一个js文件代表一个js模块； 现代浏览器">
+<meta property="og:description" content="js类的继承 js中，创建一个子类 子类，继承父类的构造函数和原型上的方法 子类原型上添加的方法不影响父类的原型">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-06-13T16:38:10.000Z">
+<meta property="og:updated_time" content="2018-06-13T16:51:34.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ES6模块化之import和export">
-<meta name="twitter:description" content="在ES6前， 前端就使用RequireJS或者seaJS实现模块化， requireJS是基于AMD规范的模块化库，  而像seaJS是基于CMD规范的模块化库，  两者都是为了为了推广前端模块化的工具;  现在ES6自带了模块化， 也是JS第一次支持module， 在很久以后 ，我们可以直接作用import和export在浏览器中导入和导出各个模块了， 一个js文件代表一个js模块； 现代浏览器">
+<meta name="twitter:title" content="js类的继承 和 操作符new">
+<meta name="twitter:description" content="js类的继承 js中，创建一个子类 子类，继承父类的构造函数和原型上的方法 子类原型上添加的方法不影响父类的原型">
 
 
 
@@ -130,7 +130,7 @@
 
 
 
-  <link rel="canonical" href="http://ictony.github.io/2017/06/14/es6-module/"/>
+  <link rel="canonical" href="http://ictony.github.io/2017/06/14/inherit-class/"/>
 
 
 
@@ -138,7 +138,7 @@
 
 
 
-  <title>ES6模块化之import和export | 洪建平的博客</title>
+  <title>js类的继承 和 操作符new | 洪建平的博客</title>
   
 
 
@@ -245,7 +245,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://ictony.github.io/2017/06/14/es6-module/">
+    <link itemprop="mainEntityOfPage" href="http://ictony.github.io/2017/06/14/inherit-class/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Tony">
@@ -262,7 +262,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">ES6模块化之import和export</h1>
+          <h1 class="post-title" itemprop="name headline">js类的继承 和 操作符new</h1>
         
 
         <div class="post-meta">
@@ -297,8 +297,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/前端，ES6，module/" itemprop="url" rel="index">
-                    <span itemprop="name">前端，ES6，module</span>
+                  <a href="/categories/javaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">javaScript</span>
                   </a>
                 </span>
 
@@ -328,7 +328,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  288
+                  464
                 </span>
               
 
@@ -344,7 +344,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  1
+                  2
                 </span>
               
             </div>
@@ -365,15 +365,14 @@
       
 
       
-        <p>在ES6前， 前端就使用RequireJS或者seaJS实现模块化， requireJS是基于AMD规范的模块化库，  而像seaJS是基于CMD规范的模块化库，  两者都是为了为了推广前端模块化的工具;</p>
-<p> 现在ES6自带了模块化， 也是JS第一次支持module， 在很久以后 ，我们可以直接作用import和export在浏览器中导入和导出各个模块了， 一个js文件代表一个js模块；</p>
-<p>现代浏览器对模块(module)支持程度不同， 目前都是使用babelJS， 或者Traceur把ES6代码转化为兼容ES5版本的js代码;</p>
+        <h3 id="js类的继承"><a href="#js类的继承" class="headerlink" title="js类的继承"></a>js类的继承</h3><ol>
+<li>js中，创建一个子类</li>
+<li>子类，继承父类的构造函数和原型上的方法</li>
+<li>子类原型上添加的方法不影响父类的原型</li>
+</ol>
 <a id="more"></a>
-<pre><code>ES6的模块化的基本规则或特点：
-</code></pre><p>1：每一个模块只加载一次， 每一个JS只执行一次， 如果下次再去加载同目录下同文件，直接从内存中读取。 一个模块就是一个单例，或者说就是一个对象；</p>
-<p>2：每一个模块内声明的变量都是局部变量， 不会污染全局作用域；</p>
-<p>3：模块内部的变量或者函数可以通过export导出；</p>
-<p>4：一个模块可以导入别的模块</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//父类 构造函数 Car</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Car</span>(<span class="params">color</span>)</span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="number">333</span>)</span><br><span class="line">	<span class="keyword">this</span>.color = color;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//父类构造函数原型上的方法</span></span><br><span class="line">Car.prototype.sale = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="keyword">this</span>.color)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//子类构造函数 Bmw</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Bmw</span>(<span class="params">color</span>)</span>&#123;</span><br><span class="line">	Car.call(<span class="keyword">this</span>,<span class="string">"red"</span>)<span class="comment">//通过this 指针指向了Bmw，即创建了Bmw的实例，继承了Car的属性。</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//1.第一种情况Bmw原型继承父类Car的原型</span></span><br><span class="line"><span class="comment">//缺点： 在Bmw原型上添加方法sale2影响了父类，即使Car的原型也添加了sale2方法；</span></span><br><span class="line">Bmw.prototype = Car.prototype; </span><br><span class="line">Bmw.prototype.sale2  = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;<span class="built_in">console</span>.log(<span class="number">222</span>)&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//2.第二种情况，Bmw原型继承父类Car的原型</span></span><br><span class="line"><span class="comment">//缺点：在Bmw 继承父类构造函数和原型方法的时候，运行了两遍Car构造函数，不合理。</span></span><br><span class="line">Bmw.prototype = <span class="keyword">new</span> Car(); </span><br><span class="line">Bmw.prototype.sale2  = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;<span class="built_in">console</span>.log(<span class="number">222</span>)&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//3.第三种情况，Bmw原型继承父类Car的原型</span></span><br><span class="line"><span class="comment">//优点：通过创建的空对象给Bmw.prototype；并可以通过_proto_访问Car.prototype；父类并不受子类影响。</span></span><br><span class="line">Bmw.prototype = <span class="built_in">Object</span>.reate(Car.prototype);</span><br><span class="line">Bmw.prototype.constructor = Bmw;</span><br><span class="line"></span><br><span class="line">Bmw.prototype.sale3 = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;<span class="built_in">console</span>.log(<span class="number">99</span>)&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> bcar = <span class="keyword">new</span> Bmw();</span><br><span class="line"><span class="comment">// 对象bcar ，同时含有sale和sale3的方法</span></span><br></pre></td></tr></table></figure>
+<h3 id="js中的new-到底做了些什么？？"><a href="#js中的new-到底做了些什么？？" class="headerlink" title="js中的new()到底做了些什么？？"></a>js中的new()到底做了些什么？？</h3><p>要创建 Person 的新实例，必须使用new操作符。以这种方式调用构造函数实际上会经历以下 4个步骤：<br>(1) 创建一个新对象；<br>(2) 将构造函数的作用域赋给新对象（因此 this 就指向了这个新对象） ；<br>(3) 执行构造函数中的代码（为这个新对象添加属性） ；<br>(4) 返回新对象。</p>
 
       
     </div>
@@ -389,12 +388,12 @@
           <!-- JS库 sweetalert 可修改路径 -->
           <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
           <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-          <p><span>本文标题:</span><a href="/2017/06/14/es6-module/">ES6模块化之import和export</a></p>
+          <p><span>本文标题:</span><a href="/2017/06/14/inherit-class/">js类的继承 和 操作符new</a></p>
           <p><span>文章作者:</span><a href="/" title="访问 Tony 的个人博客">Tony</a></p>
           <p><span>发布时间:</span>2017年06月14日 - 00:06</p>
           <p><span>最后更新:</span>2018年06月14日 - 00:06</p>
-          <p><span>原始链接:</span><a href="/2017/06/14/es6-module/" title="ES6模块化之import和export">http://ictony.github.io/2017/06/14/es6-module/</a>
-            <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://ictony.github.io/2017/06/14/es6-module/"  aria-label="复制成功！"></i></span>
+          <p><span>原始链接:</span><a href="/2017/06/14/inherit-class/" title="js类的继承 和 操作符new">http://ictony.github.io/2017/06/14/inherit-class/</a>
+            <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://ictony.github.io/2017/06/14/inherit-class/"  aria-label="复制成功！"></i></span>
           </p>
           <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
         </div>
@@ -418,9 +417,13 @@
       
         <div class="post-tags">
           
-            <a href="/tags/javascripte/" rel="tag"><i class="fa fa-tag"></i> javascripte</a>
-          
             <a href="/tags/前端/" rel="tag"><i class="fa fa-tag"></i> 前端</a>
+          
+            <a href="/tags/new/" rel="tag"><i class="fa fa-tag"></i> new</a>
+          
+            <a href="/tags/构造函数/" rel="tag"><i class="fa fa-tag"></i> 构造函数</a>
+          
+            <a href="/tags/继承/" rel="tag"><i class="fa fa-tag"></i> 继承</a>
           
         </div>
       
@@ -433,8 +436,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/06/14/inherit-class/" rel="next" title="js类的继承 和 操作符new">
-                <i class="fa fa-chevron-left"></i> js类的继承 和 操作符new
+              <a href="/2016/11/14/functionProgramming/" rel="next" title="函数式编程的思维">
+                <i class="fa fa-chevron-left"></i> 函数式编程的思维
               </a>
             
           </div>
@@ -443,8 +446,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/11/14/webpack/" rel="prev" title="webpack 入门学习">
-                webpack 入门学习 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/06/14/es6-module/" rel="prev" title="ES6模块化之import和export">
+                ES6模块化之import和export <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -535,8 +538,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -610,6 +622,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#js类的继承"><span class="nav-number">1.</span> <span class="nav-text">js类的继承</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#js中的new-到底做了些什么？？"><span class="nav-number">2.</span> <span class="nav-text">js中的new()到底做了些什么？？</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
