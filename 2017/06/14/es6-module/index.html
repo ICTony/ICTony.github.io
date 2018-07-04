@@ -89,18 +89,18 @@
 
 
 
-<meta name="description" content="在ES6前， 前端就使用RequireJS或者seaJS实现模块化， requireJS是基于AMD规范的模块化库，  而像seaJS是基于CMD规范的模块化库，  两者都是为了为了推广前端模块化的工具;  现在ES6自带了模块化， 也是JS第一次支持module， 在很久以后 ，我们可以直接作用import和export在浏览器中导入和导出各个模块了， 一个js文件代表一个js模块； 现代浏览器">
+<meta name="description" content="ES6的module，import和export在ES6前， 前端就使用RequireJS或者seaJS实现模块化， requireJS是基于AMD规范的模块化库，  而像seaJS是基于CMD规范的模块化库，  两者都是为了为了推广前端模块化的工具;  现在ES6自带了模块化， 也是JS第一次支持module， 在很久以后 ，我们可以直接作用import和export在浏览器中导入和导出各个模块">
 <meta name="keywords" content="javascripte,前端">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ES6模块化之import和export">
 <meta property="og:url" content="http://ictony.github.io/2017/06/14/es6-module/index.html">
 <meta property="og:site_name" content="洪建平的博客">
-<meta property="og:description" content="在ES6前， 前端就使用RequireJS或者seaJS实现模块化， requireJS是基于AMD规范的模块化库，  而像seaJS是基于CMD规范的模块化库，  两者都是为了为了推广前端模块化的工具;  现在ES6自带了模块化， 也是JS第一次支持module， 在很久以后 ，我们可以直接作用import和export在浏览器中导入和导出各个模块了， 一个js文件代表一个js模块； 现代浏览器">
+<meta property="og:description" content="ES6的module，import和export在ES6前， 前端就使用RequireJS或者seaJS实现模块化， requireJS是基于AMD规范的模块化库，  而像seaJS是基于CMD规范的模块化库，  两者都是为了为了推广前端模块化的工具;  现在ES6自带了模块化， 也是JS第一次支持module， 在很久以后 ，我们可以直接作用import和export在浏览器中导入和导出各个模块">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-06-13T16:38:10.000Z">
+<meta property="og:updated_time" content="2018-07-04T14:40:44.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ES6模块化之import和export">
-<meta name="twitter:description" content="在ES6前， 前端就使用RequireJS或者seaJS实现模块化， requireJS是基于AMD规范的模块化库，  而像seaJS是基于CMD规范的模块化库，  两者都是为了为了推广前端模块化的工具;  现在ES6自带了模块化， 也是JS第一次支持module， 在很久以后 ，我们可以直接作用import和export在浏览器中导入和导出各个模块了， 一个js文件代表一个js模块； 现代浏览器">
+<meta name="twitter:description" content="ES6的module，import和export在ES6前， 前端就使用RequireJS或者seaJS实现模块化， requireJS是基于AMD规范的模块化库，  而像seaJS是基于CMD规范的模块化库，  两者都是为了为了推广前端模块化的工具;  现在ES6自带了模块化， 也是JS第一次支持module， 在很久以后 ，我们可以直接作用import和export在浏览器中导入和导出各个模块">
 
 
 
@@ -328,7 +328,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  288
+                  1,195
                 </span>
               
 
@@ -344,7 +344,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  1
+                  4
                 </span>
               
             </div>
@@ -365,7 +365,7 @@
       
 
       
-        <p>在ES6前， 前端就使用RequireJS或者seaJS实现模块化， requireJS是基于AMD规范的模块化库，  而像seaJS是基于CMD规范的模块化库，  两者都是为了为了推广前端模块化的工具;</p>
+        <h3 id="ES6的module，import和export"><a href="#ES6的module，import和export" class="headerlink" title="ES6的module，import和export"></a>ES6的module，import和export</h3><p>在ES6前， 前端就使用RequireJS或者seaJS实现模块化， requireJS是基于AMD规范的模块化库，  而像seaJS是基于CMD规范的模块化库，  两者都是为了为了推广前端模块化的工具;</p>
 <p> 现在ES6自带了模块化， 也是JS第一次支持module， 在很久以后 ，我们可以直接作用import和export在浏览器中导入和导出各个模块了， 一个js文件代表一个js模块；</p>
 <p>现代浏览器对模块(module)支持程度不同， 目前都是使用babelJS， 或者Traceur把ES6代码转化为兼容ES5版本的js代码;</p>
 <a id="more"></a>
@@ -374,6 +374,29 @@
 <p>2：每一个模块内声明的变量都是局部变量， 不会污染全局作用域；</p>
 <p>3：模块内部的变量或者函数可以通过export导出；</p>
 <p>4：一个模块可以导入别的模块</p>
+<h3 id="CommonJS"><a href="#CommonJS" class="headerlink" title="CommonJS"></a>CommonJS</h3><p>在浏览器环境下，没有模块也不是特别大的问题，毕竟网页程序的复杂性有限；但是在服务器端，一定要有模块，与操作系统和其他应用程序互动，否则根本没法编程。NodeJS是CommonJS规范的实现，webpack 也是以CommonJS的形式来书写。</p>
+<h4 id="为什么commonjs不适合于浏览器端"><a href="#为什么commonjs不适合于浏览器端" class="headerlink" title="为什么commonjs不适合于浏览器端"></a>为什么commonjs不适合于浏览器端</h4><p>有了服务器端模块以后，很自然地，大家就想要客户端模块。而且最好两者能够兼容，一个模块不用修改，在服务器和浏览器都可以运行。</p>
+<p>但是，由于一个重大的局限，使得CommonJS规范不适用于浏览器环境。还是上一节的代码，如果在浏览器中运行，会有一个很大的问题，你能看出来吗？<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">    　<span class="keyword">var</span> math = <span class="built_in">require</span>(<span class="string">'math'</span>);</span><br><span class="line"></span><br><span class="line">　　    math.add(<span class="number">2</span>, <span class="number">3</span>);</span><br><span class="line"><span class="comment">//第二行math.add(2,3)，在第一行require('math')之后运行，因此必须等math.js加载完成。也就是说，如果加载时间很长，整个应用就会停在那里等。</span></span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>这对服务器端不是一个问题，因为所有的模块都存放在本地硬盘，可以同步加载完成，等待时间就是硬盘的读取时间。但是，对于浏览器，这却是一个大问题，因为模块都放在服务器端，等待时间取决于网速的快慢，可能要等很长时间，浏览器处于”假死”状态。</p>
+</blockquote>
+<blockquote>
+<p>因此，浏览器端的模块，不能采用”同步加载”（synchronous），只能采用”异步加载”（asynchronous）。这就是AMD规范诞生的背景。</p>
+</blockquote>
+<h3 id="AMD"><a href="#AMD" class="headerlink" title="AMD"></a>AMD</h3><p>AMD是”Asynchronous  Module Definition”的缩写，意思就是”异步模块定义”。它采用异步方式加载模块，模块的加载不影响它后面语句的运行。所有依赖这个模块的语句，都定义在一个回调函数中，等到加载完成之后，这个回调函数才会运行。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">    　<span class="built_in">require</span>([<span class="string">'math'</span>], <span class="function"><span class="keyword">function</span> (<span class="params">math</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">　　　　math.add(<span class="number">2</span>, <span class="number">3</span>);</span><br><span class="line"></span><br><span class="line">　　&#125;);</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>math.add()与math模块加载不是同步的，浏览器不会发生假死。所以很显然，AMD比较适合浏览器环境。目前，主要有两个Javascript库实现了AMD规范：require.js和curl.js。</p>
+</blockquote>
+<h4 id="为什么要用require-js？"><a href="#为什么要用require-js？" class="headerlink" title="为什么要用require.js？"></a>为什么要用require.js？</h4><p>最早的时候，所有Javascript代码都写在一个文件里面，只要加载这一个文件就够了。后来，代码越来越多，一个文件不够了，必须分成多个文件，依次加载。下面的网页代码，相信很多人都见过。</p>
+<ol>
+<li>实现js文件的异步加载，避免网页失去响应；</li>
+<li>管理模块之间的依赖性，便于代码的编写和维护。</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">　　&lt;script src=<span class="string">"1.js"</span>&gt;&lt;/script&gt;</span><br><span class="line">　　&lt;script src=<span class="string">"2.js"</span>&gt;&lt;/script&gt;</span><br><span class="line">　　&lt;script src=<span class="string">"3.js"</span>&gt;&lt;/script&gt;</span><br><span class="line">　　&lt;script src=<span class="string">"4.js"</span>&gt;&lt;/script&gt;</span><br><span class="line">　　&lt;script src=<span class="string">"5.js"</span>&gt;&lt;/script&gt;</span><br><span class="line">　　&lt;script src=<span class="string">"6.js"</span>&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>这样的写法有很大的缺点。首先，加载的时候，浏览器会停止网页渲染，加载文件越多，网页失去响应的时间就会越长；其次，由于js文件之间存在依赖关系，因此必须严格保证加载顺序（比如上例的1.js要在2.js的前面），依赖性最大的模块一定要放到最后加载，当依赖关系很复杂的时候，代码的编写和维护都会变得困难。</p>
+</blockquote>
+<h3 id="CMD"><a href="#CMD" class="headerlink" title="CMD"></a>CMD</h3><p>1、AMD推崇依赖前置，在定义模块的时候就要声明其依赖的模块<br>2、CMD推崇就近依赖，只有在用到某个模块的时候再去require </p>
 
       
     </div>
@@ -392,7 +415,7 @@
           <p><span>本文标题:</span><a href="/2017/06/14/es6-module/">ES6模块化之import和export</a></p>
           <p><span>文章作者:</span><a href="/" title="访问 Tony 的个人博客">Tony</a></p>
           <p><span>发布时间:</span>2017年06月14日 - 00:06</p>
-          <p><span>最后更新:</span>2018年06月14日 - 00:06</p>
+          <p><span>最后更新:</span>2018年07月04日 - 22:07</p>
           <p><span>原始链接:</span><a href="/2017/06/14/es6-module/" title="ES6模块化之import和export">http://ictony.github.io/2017/06/14/es6-module/</a>
             <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://ictony.github.io/2017/06/14/es6-module/"  aria-label="复制成功！"></i></span>
           </p>
@@ -535,8 +558,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -610,6 +642,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#ES6的module，import和export"><span class="nav-number">1.</span> <span class="nav-text">ES6的module，import和export</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CommonJS"><span class="nav-number">2.</span> <span class="nav-text">CommonJS</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#为什么commonjs不适合于浏览器端"><span class="nav-number">2.1.</span> <span class="nav-text">为什么commonjs不适合于浏览器端</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AMD"><span class="nav-number">3.</span> <span class="nav-text">AMD</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#为什么要用require-js？"><span class="nav-number">3.1.</span> <span class="nav-text">为什么要用require.js？</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CMD"><span class="nav-number">4.</span> <span class="nav-text">CMD</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
