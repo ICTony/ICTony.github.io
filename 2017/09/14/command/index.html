@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="linux,前端," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="linux –&amp;gt; centos 常用命令总结自己作一名前端开发者，从实用性出发，或许之后的开发路上并不会有机会深入接触到底层驱动的实现亦或是对内核的研究，但是Linux下的底层机制对开发者的启发有着不小的帮助。从大环境来说，学习Linux能帮助开发者更清晰的了解整个产品的系统架构（例WEB栈：服务器硬件-&amp;gt;虚拟化平台-&amp;gt;操作系统-&amp;gt;应用层支撑-&amp;gt;业务层-&amp;gt;用户交">
+<meta name="keywords" content="linux,前端">
+<meta property="og:type" content="article">
+<meta property="og:title" content="linux 常用命令总结">
+<meta property="og:url" content="http://ictony.github.io/2017/09/14/command/index.html">
+<meta property="og:site_name" content="洪建平的博客">
+<meta property="og:description" content="linux –&amp;gt; centos 常用命令总结自己作一名前端开发者，从实用性出发，或许之后的开发路上并不会有机会深入接触到底层驱动的实现亦或是对内核的研究，但是Linux下的底层机制对开发者的启发有着不小的帮助。从大环境来说，学习Linux能帮助开发者更清晰的了解整个产品的系统架构（例WEB栈：服务器硬件-&amp;gt;虚拟化平台-&amp;gt;操作系统-&amp;gt;应用层支撑-&amp;gt;业务层-&amp;gt;用户交">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-07-08T10:03:14.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="linux 常用命令总结">
+<meta name="twitter:description" content="linux –&amp;gt; centos 常用命令总结自己作一名前端开发者，从实用性出发，或许之后的开发路上并不会有机会深入接触到底层驱动的实现亦或是对内核的研究，但是Linux下的底层机制对开发者的启发有着不小的帮助。从大环境来说，学习Linux能帮助开发者更清晰的了解整个产品的系统架构（例WEB栈：服务器硬件-&amp;gt;虚拟化平台-&amp;gt;操作系统-&amp;gt;应用层支撑-&amp;gt;业务层-&amp;gt;用户交">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://ictony.github.io/2017/09/14/command/"/>
+
+
+
+
+
+
+
+  <title>linux 常用命令总结 | 洪建平的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">洪建平的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">记录与总结</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://ictony.github.io/2017/09/14/command/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Tony">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/autho.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="洪建平的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">linux 常用命令总结</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-14T00:00:00+08:00">
+                2017-09-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端，linux/" itemprop="url" rel="index">
+                    <span itemprop="name">前端，linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3,504
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  14
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="linux-–-gt-centos-常用命令总结"><a href="#linux-–-gt-centos-常用命令总结" class="headerlink" title="linux –&gt; centos 常用命令总结"></a>linux –&gt; centos 常用命令总结</h4><p>自己作一名前端开发者，从实用性出发，或许之后的开发路上并不会有机会深入接触到底层驱动的实现亦或是对内核的研究，但是Linux下的底层机制对开发者的启发有着不小的帮助。从大环境来说，学习Linux能帮助开发者更清晰的了解整个产品的系统架构（例WEB栈：服务器硬件-&gt;虚拟化平台-&gt;操作系统-&gt;应用层支撑-&gt;业务层-&gt;用户交互层），从而可以让加速团队的沟通和工作对接，另外，独立开发的时候在Linux上部署环境也是必不可少的技能。因此我觉得无论是从团队的角度还是独立开发的角度，Linux都是一项必不可少的专业技能。<br><a id="more"></a></p>
+<h4 id="命令的基本格式"><a href="#命令的基本格式" class="headerlink" title="命令的基本格式"></a>命令的基本格式</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@izwz95fdcti43ofd6fdafbuqzj1tz ~]# </span><br><span class="line">    其中： </span><br><span class="line">    root:                           <span class="comment">//用户名</span></span><br><span class="line">    izwz95fdcti43ofd6fdafbuqzj1tz    <span class="comment">//主机名(可以修改主机名 loaclhost)</span></span><br><span class="line">    ~                               <span class="comment">//当前目录（家目录）  </span></span><br><span class="line">    #                               //超级用户的提示符</span><br><span class="line">                                    <span class="comment">//普通用户的提示符是$</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>root 用户登录的家目录是 /root, 普通用户$登录的家目录是 /home目录</p>
+</blockquote>
+<h4 id="文件的处理命令"><a href="#文件的处理命令" class="headerlink" title="文件的处理命令"></a>文件的处理命令</h4><h5 id="查询目录中的命令-ls"><a href="#查询目录中的命令-ls" class="headerlink" title="查询目录中的命令 ls"></a>查询目录中的命令 ls</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">ls [选项][参数（文件|目录）]</span><br><span class="line">选项：</span><br><span class="line">        -a  <span class="comment">//显示所有文件包括隐藏文件 </span></span><br><span class="line">        -l  <span class="comment">// 显示详细信息</span></span><br><span class="line">        -d  <span class="comment">// 查看目录属性</span></span><br><span class="line">        -h  <span class="comment">//人性化显示文件大小  </span></span><br><span class="line">        -i  <span class="comment">//inode</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[root@izwz95cti43o6afbuqzj1tz hjp]<span class="comment"># ls -lh</span></span><br><span class="line">total 132K</span><br><span class="line">-rw-r--r-- 1 root root  34K Jul  7 13:24 GNU-AGPL-3.0</span><br><span class="line"><span class="comment"># ls -lh 文件大小是按照k 单位显示的。</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[root@izwz95cti43o6afbuqzj1tz hjp]<span class="comment"># ls -l</span></span><br><span class="line">total 132</span><br><span class="line">-rw-r--r-- 1 root root 34520 Jul  7 13:24 GNU-AGPL-3.0</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[root@izwz95cti43o6afbuqzj1tz home]<span class="comment"># ls -a /etc</span></span><br><span class="line">.                        audit                    dbus-1</span><br><span class="line">.updated               </span><br><span class="line"></span><br><span class="line"><span class="comment">#显示隐藏文件在服务器中文件名以. 开头   ，表示是系统文件。</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>选项是命令的功能； 参数是执行的对象，如果没有，默认表示当前目录</p>
+</blockquote>
+<h5 id="文件类型"><a href="#文件类型" class="headerlink" title="文件类型"></a>文件类型</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"> -rw-r--r--    <span class="comment">//10位表示文件类型</span></span><br><span class="line">   <span class="comment">//第一位 -: 文件类型（-表示文件，d表示目录，l 表示软连接文件）</span></span><br><span class="line"> rw-           r--               r--</span><br><span class="line"> <span class="comment">//所有者      //所属组        //其他人</span></span><br><span class="line"><span class="comment">//r 表示读  w:表示写    x：表示 执行</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@izwz95cti43o6afbuqzj1tz hjp]<span class="comment"># ls -l</span></span><br><span class="line">total 132</span><br><span class="line">-rw-r--r-- 1 root root 34520 Jul  7 13:24 GNU-AGPL-3.0</span><br><span class="line">-rw-r--r-- 1 root user2 16726 Jul  7 13:24 MPL-2</span><br><span class="line">-rw-r--r-- 1 root user1  1359 Jul  7 13:24 README</span><br><span class="line">            <span class="comment">#所有者 所属组</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>Linux 不识别后缀名，一般为三个类型(除系统文件)： - d l</p>
+</blockquote>
+<h5 id="目录命令"><a href="#目录命令" class="headerlink" title="目录命令"></a>目录命令</h5><h6 id="创建目录-mkdir-（英文名：-make-directories）"><a href="#创建目录-mkdir-（英文名：-make-directories）" class="headerlink" title="创建目录 mkdir （英文名： make directories）"></a>创建目录 mkdir （英文名： make directories）</h6><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p [目录名]</span><br><span class="line"> -p <span class="comment">//递归创建</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@izwz95cti43o6afbuqzj1tz hjp]<span class="comment"># mkdir -p doc1/doc2  </span></span><br><span class="line"></span><br><span class="line"><span class="comment">#表示连续创建doc1目录和子目录doc2</span></span><br></pre></td></tr></table></figure>
+<h6 id="切换目录"><a href="#切换目录" class="headerlink" title="切换目录"></a>切换目录</h6><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">cd   [目录]   <span class="comment">//英文名：change directory</span></span><br><span class="line"><span class="comment">//简化操作</span></span><br><span class="line">cd ~    <span class="comment">//进入当前用户的家目录</span></span><br><span class="line">cd -    <span class="comment">//进入上一次目录</span></span><br><span class="line">cd ..   <span class="comment">//进入上一级目录</span></span><br><span class="line">cd .    <span class="comment">//进入当前目录</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>相对路径：从当前目录开始查找   绝对路径：从跟目录开始递归查找</p>
+</blockquote>
+<h6 id="删除空白目录"><a href="#删除空白目录" class="headerlink" title="删除空白目录"></a>删除空白目录</h6><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">rmdir <span class="comment">//删除空文件夹,不能删除包含有子目录的文件夹</span></span><br><span class="line"></span><br><span class="line">rm -rf [文件|目录]</span><br><span class="line"><span class="comment">//命令英文原意：remove</span></span><br><span class="line"></span><br><span class="line">选项 -r <span class="comment">//删除目录</span></span><br><span class="line">    -f   <span class="comment">//强制</span></span><br></pre></td></tr></table></figure>
+<h6 id="复制命令"><a href="#复制命令" class="headerlink" title="复制命令"></a>复制命令</h6><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">cp [选项][原文件|目录][目标目录]</span><br><span class="line"></span><br><span class="line">    选项：</span><br><span class="line">    -r  <span class="comment">//复制目录</span></span><br><span class="line">    -p  <span class="comment">//连文件属性复制</span></span><br><span class="line">    -d  <span class="comment">//若原文件是链接文件，则复制链接属性</span></span><br><span class="line">    -a  <span class="comment">//相当于-pdr</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@izwz95cti43o6afbuqzj1tz hjp]<span class="comment">#cp -r doc1/ task/</span></span><br></pre></td></tr></table></figure>
+<h6 id="剪切或改名命令"><a href="#剪切或改名命令" class="headerlink" title="剪切或改名命令"></a>剪切或改名命令</h6><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mv [选项][原文件|目录][目标目录]</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@izwz95cti43o6afbuqzj1tz hjp]<span class="comment"># mv doc1 doc3</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>如果原文件跟目标文件在同一个目录下是改名，如果不在同一个目录下是剪切功能。</p>
+</blockquote>
+<p>######常用的目录作用</p>
+<ul>
+<li>/根目录</li>
+<li>/bin命令保存目录</li>
+<li>/boot启动目录，启动相关文件</li>
+<li>/dev设备文件保存目录</li>
+<li>/etc配置文件报错目录</li>
+<li>/home普通用户的家目录</li>
+<li>/lib系统库报错目录</li>
+<li>/mnt 系统挂在目录</li>
+<li>/media 挂在目录</li>
+<li>/root超级用户的家目录</li>
+<li>/tmp临时目录</li>
+<li>sbin命令保存目录（超级用户才能使用的目录）</li>
+<li>proc直接写入内存</li>
+<li>sys</li>
+<li>/usr系统软件资源目录<br> /usr/bin系统命令（普通用户）<br> /usr/sbin/系统命令（超级用户）</li>
+<li><p>/var 系统相关文档内容</p>
+<h6 id="文件的软连接和硬链接"><a href="#文件的软连接和硬链接" class="headerlink" title="文件的软连接和硬链接"></a>文件的软连接和硬链接</h6><p> 1.硬链接特征</p>
+<ul>
+<li>拥有相同的i节点号和block块，可以看做是同一个文件</li>
+<li>可通过i节点识别和查找</li>
+<li>不能跨分区</li>
+<li>不能针对目录使用</li>
+</ul>
+<p>2.软连接特征</p>
+<ul>
+<li>类似windows 的快捷方式。</li>
+<li>软连接拥有自己的i节点和block块，但数据块中只保存原文件的i节点号和原文件名，并没有实际的原文件的数据。</li>
+<li>软连接的权限为rwxrwxrwx。</li>
+<li>修改任意文件，另一个也会改变。</li>
+<li>删除原文件，软连接文件不能使用。</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>创建软连接的时候原文件使用<strong>绝对地址</strong>，会根据创建软连接的地址的 同级目录查找原文件。</p>
+</blockquote>
+<h4 id="文件的搜索命令"><a href="#文件的搜索命令" class="headerlink" title="文件的搜索命令"></a>文件的搜索命令</h4><ul>
+<li>文件的搜索命令locate</li>
+<li>命令搜索命令whereis 和which</li>
+<li>文件搜索命令find</li>
+<li>字符串搜索命令grep</li>
+<li>find命令和grep命令的区别</li>
+</ul>
+<h5 id="locate命令"><a href="#locate命令" class="headerlink" title="locate命令"></a>locate命令</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">[root@izwz95cti43o6afbuqzj1tz ~]<span class="comment"># locate task</span></span><br><span class="line"><span class="comment">#如果报错 没有此命令</span></span><br><span class="line"><span class="comment">#1.需要线安装locate</span></span><br><span class="line"><span class="comment">#2.更新mlocate 数据库</span></span><br><span class="line"><span class="comment">#3.updatedb</span></span><br><span class="line"><span class="comment">#4.就可以通过locate 命令查找了</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#PRUNE_BIND_MOUNTS</span></span><br><span class="line"><span class="comment">#表示开启搜索限制</span></span><br><span class="line"><span class="comment">#PRUNEFS</span></span><br><span class="line"><span class="comment">#搜索时不搜索的文件系统</span></span><br><span class="line"><span class="comment">#PRUNENAMES</span></span><br><span class="line"><span class="comment">#搜索时不搜索的文件类型</span></span><br><span class="line"><span class="comment">#PRUNEPATHS</span></span><br><span class="line"><span class="comment">#搜索时不搜索的路径</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>1.特点： 搜索数据库，不是搜索这个系统的目录，消耗小，速度更快。<br>2.locate命令查找的配置文件目录： /etc/updatedb.conf<br>设置locate查找目录范围。<br>3.mlocate 数据库默认是一天更新一次，用户可以通过updateupdb 手动更新数据库。<br>4.主要是通过文件名搜索。</p>
+</blockquote>
+<h5 id="命令搜索命令whereis-和which"><a href="#命令搜索命令whereis-和which" class="headerlink" title="命令搜索命令whereis 和which"></a>命令搜索命令whereis 和which</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">whereis  命令名 </span><br><span class="line">    <span class="comment">#搜索命令所在执行文件位置和帮助文档位置</span></span><br><span class="line">    选项：</span><br><span class="line">    -b  只查找可执行文件位置</span><br><span class="line">    -m   之查找帮助文档位置</span><br><span class="line">[root@izwz95cti43o6afbuqzj1tz ~]<span class="comment"># whereis ls</span></span><br><span class="line">ls: /usr/bin/ls /usr/share/man/man1/ls.1.gz</span><br><span class="line"></span><br><span class="line"><span class="comment"># 执行文件所在位置   #帮助文档位置</span></span><br><span class="line"></span><br><span class="line">[root@izwz95cti43o6afbuqzj1tz ~]<span class="comment"># whereis -m ls</span></span><br><span class="line">ls: /usr/share/man/man1/ls.1.gz  <span class="comment"># 只显示帮助文档所在位置</span></span><br><span class="line">[root@izwz95cti43o6afbuqzj1tz ~]<span class="comment"># whereis -b ls</span></span><br><span class="line">ls: /usr/bin/ls       <span class="comment">#只显示执行文件所在位置</span></span><br><span class="line">    </span><br><span class="line">[root@izwz95cti43o6afbuqzj1tz ~]<span class="comment"># which ls</span></span><br><span class="line"><span class="built_in">alias</span> ls=<span class="string">'ls --color=auto'</span></span><br><span class="line">	/usr/bin/ls    <span class="comment">#which 只显示命令执行文件所在位置，如果有别名 显示别名ls 是ls --color=auto 的别名，不是所有的命令都会有别名。</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>局限性：只能搜索命令的位置，不能搜索目录的位置</p>
+</blockquote>
+<h5 id="文件搜索命令find"><a href="#文件搜索命令find" class="headerlink" title="文件搜索命令find"></a>文件搜索命令find</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line">find [搜索范围][搜索条件]</span><br><span class="line">    <span class="comment">#搜索文件</span></span><br><span class="line">[root@izwz95cti43o6afbuqzj1tz ~]<span class="comment"># find / -name install.log</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#避免大范围搜索，会非常消耗系统资源</span></span><br><span class="line"><span class="comment">#find是在系统当中搜索符合条件的文件名，如果需要匹配，使用通配符匹配，通配符是完全匹配</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[root@izwz95cti43o6afbuqzj1tz hjp]<span class="comment"># find /home/hjp/ -name start.sh</span></span><br><span class="line">/home/hjp/start.sh</span><br><span class="line"><span class="comment">#这里是精准匹配</span></span><br><span class="line"></span><br><span class="line">[root@izwz95cti43o6afbuqzj1tz hjp]<span class="comment"># find /home/hjp/ -name "start.sh*"</span></span><br><span class="line">/home/hjp/start.sh.stop</span><br><span class="line">/home/hjp/start.sh</span><br><span class="line"></span><br><span class="line"><span class="comment"># 通过添加*号，表示模糊匹配。</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[root@izwz95cti43o6afbuqzj1tz hjp]<span class="comment"># find /home/hjp/ -name "*"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#列出搜索目录下所有的文件（包括隐藏文件）</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># linux中通配符：</span></span><br><span class="line"><span class="comment">#   * 匹配任意内容</span></span><br><span class="line"><span class="comment">#   ？匹配任意一个字符</span></span><br><span class="line"><span class="comment">#  [] 匹配中括号中任意一个字符</span></span><br><span class="line"></span><br><span class="line">find /root -iname install.log</span><br><span class="line"><span class="comment">#不区分大小写</span></span><br><span class="line">find /root -user root</span><br><span class="line"><span class="comment">#按照所有者搜索</span></span><br><span class="line"></span><br><span class="line">find /root -nouser</span><br><span class="line"><span class="comment">#按照没有所有者搜索</span></span><br><span class="line"></span><br><span class="line">find /var/<span class="built_in">log</span> mtime +10</span><br><span class="line"><span class="comment">#查找10天前修改的文件</span></span><br><span class="line"></span><br><span class="line">-10 10天内修改的文件</span><br><span class="line">10 10天修改的文件</span><br><span class="line">+10 10天前修改的文件</span><br><span class="line"></span><br><span class="line">atime 文件访问时间</span><br><span class="line">ctime 更改文件属性</span><br><span class="line">mtime 修改文件内容</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">find ./ -size 25k</span><br><span class="line"><span class="comment">#查找当前目录下25k大小的文件</span></span><br><span class="line"></span><br><span class="line">-25k 小于25k</span><br><span class="line">25k 等于25k</span><br><span class="line">+25k 大于25k</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">find -iname 343523</span><br><span class="line"><span class="comment">#查找节点是343523 的文件</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">find /etc -size +20k -a -size -50k</span><br><span class="line"><span class="comment">#查找etc目录下，大于20k小于50k的文件</span></span><br><span class="line"><span class="comment"># -a  and 逻辑与，两个条件都满足</span></span><br><span class="line"><span class="comment"># -o or 逻辑条件或， 两个条件满足一个就可以</span></span><br><span class="line"></span><br><span class="line">find /etc -size +20k -a -size -50k -<span class="built_in">exec</span> ls  -lh &#123;&#125; \;</span><br><span class="line"><span class="comment">#查找etc目录下，大于20k小于50k的文件，并显示详细信息。</span></span><br></pre></td></tr></table></figure>
+<p>注意：<td><font color="#01814A">避免大范围搜索，会非常消耗系统资源</font></td></p>
+<h5 id="字符串搜索命令grep"><a href="#字符串搜索命令grep" class="headerlink" title="字符串搜索命令grep"></a>字符串搜索命令grep</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">grep [选项] 字符串 文件名</span><br><span class="line"><span class="comment">#在文件当中匹配符合条件的字符串</span></span><br><span class="line"> 选项</span><br><span class="line">    -i 忽略大小写</span><br><span class="line">    -v排查制定字符串（即搜索结果取反）</span><br></pre></td></tr></table></figure>
+<h4 id="帮助命令"><a href="#帮助命令" class="headerlink" title="帮助命令"></a>帮助命令</h4><h5 id="man-帮助命令"><a href="#man-帮助命令" class="headerlink" title="man 帮助命令"></a>man 帮助命令</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">man -f </span><br><span class="line">相当于 whatis</span><br><span class="line"></span><br><span class="line">举例：</span><br><span class="line">man -5 password</span><br><span class="line">man -4 null</span><br><span class="line">man -8 ifconfig</span><br><span class="line"></span><br><span class="line">man -k</span><br></pre></td></tr></table></figure>
+<h5 id="其他帮助命令"><a href="#其他帮助命令" class="headerlink" title="其他帮助命令"></a>其他帮助命令</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">命令 --<span class="built_in">help</span></span><br><span class="line"></span><br><span class="line">例如：</span><br><span class="line">ls --<span class="built_in">help</span></span><br></pre></td></tr></table></figure>
+<h4 id="文件压缩和解压"><a href="#文件压缩和解压" class="headerlink" title="文件压缩和解压"></a>文件压缩和解压</h4><p>常用压缩格式</p>
+<ul>
+<li>.zip </li>
+<li>.gz</li>
+<li>.bz2</li>
+</ul>
+<h5 id="zip-格式压缩和解压缩"><a href="#zip-格式压缩和解压缩" class="headerlink" title=".zip 格式压缩和解压缩"></a>.zip 格式压缩和解压缩</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">    zip 压缩文件名 源文件</span><br><span class="line">    <span class="comment">#压缩文件</span></span><br><span class="line">    </span><br><span class="line">    zip -r 压缩文件名 源目录</span><br><span class="line">    <span class="comment">#压缩目录</span></span><br><span class="line">    </span><br><span class="line">    unzip 压缩文件</span><br><span class="line"><span class="comment"># 解压缩.zip 文件</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>如果找不到该命令，需要安装zip应用，yum install zip unzip</p>
+</blockquote>
+<h5 id="gz-格式解压缩和解压缩"><a href="#gz-格式解压缩和解压缩" class="headerlink" title=".gz 格式解压缩和解压缩"></a>.gz 格式解压缩和解压缩</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">gzip   源文件</span><br><span class="line"><span class="comment"># 压缩.gz格式的压缩文件，不保留源文件</span></span><br><span class="line"></span><br><span class="line">gzip -c 源文件 &gt; 压缩文件</span><br><span class="line"><span class="comment"># 压缩.gz格式，保留源文件</span></span><br><span class="line"></span><br><span class="line">gzip -r 目录</span><br><span class="line"><span class="comment">#压缩目录下所有的子文件，但不能压缩目录</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">gzip -d 压缩文件</span><br><span class="line"><span class="comment">#解压缩文件</span></span><br><span class="line">gunzip 压缩文件</span><br><span class="line"><span class="comment">#解压缩文件</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>bzip2 不能打包目录</p>
+</blockquote>
+<h5 id="bz2-格式解压缩"><a href="#bz2-格式解压缩" class="headerlink" title=".bz2 格式解压缩"></a>.bz2 格式解压缩</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">bzip2 源文件</span><br><span class="line"><span class="comment"># 压缩.bz2格式，不保留源文件</span></span><br><span class="line"></span><br><span class="line">bzip2 -k 源文件</span><br><span class="line"><span class="comment"># 压缩.bz2格式，保留源文件</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">bzip2 -d 压缩文件</span><br><span class="line"><span class="comment">#解压缩，-k 保留压缩文件</span></span><br><span class="line"></span><br><span class="line">bunzip2 压缩文件</span><br><span class="line"> <span class="comment">#解压缩，-k 保留压缩文件</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>bzip2 不能打包目录</p>
+</blockquote>
+<h5 id="打包命令tar和解答打包命令"><a href="#打包命令tar和解答打包命令" class="headerlink" title="打包命令tar和解答打包命令"></a>打包命令tar和解答打包命令</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">tar -cvf 打包文件名 源文件</span><br><span class="line">选项：</span><br><span class="line">  -c : 打包</span><br><span class="line">  -v :显示打包过程</span><br><span class="line">  -f :指定打包后的文件名</span><br><span class="line">  </span><br><span class="line">  例如：</span><br><span class="line">  tar -cvf cangls.tar cangls </span><br><span class="line">  </span><br><span class="line">  tar -xvf 打包文件名</span><br><span class="line">  选项</span><br><span class="line">  -x:解打包</span><br><span class="line">  </span><br><span class="line">  例如：</span><br><span class="line">  tar -xvf cangls.tar</span><br></pre></td></tr></table></figure>
+<h5 id="tar-gz-压缩格式"><a href="#tar-gz-压缩格式" class="headerlink" title=".tar.gz 压缩格式"></a>.tar.gz 压缩格式</h5><ul>
+<li>其实.tar.gz 格式是先打包成tar 格式，再压缩为.gz 格式<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">tar -zcvf 压缩名.tar.gz 源文件</span><br><span class="line">选项：</span><br><span class="line"> -z : 压缩为.tar.gz 格式</span><br><span class="line"> </span><br><span class="line"> tar -zcvf  [目录]压缩名.tar.gz 源文件 源文件</span><br><span class="line"> <span class="comment"># 可以将多个源文件 打包到指定的目录下。</span></span><br><span class="line"> </span><br><span class="line">tar -zxvf 压缩包名.tar.gz</span><br><span class="line">    选项：</span><br><span class="line">    -x ：解压缩.tar.gz 格式</span><br><span class="line">    </span><br><span class="line">tar -zxvf 压缩包名.tar.gz -c 目录名</span><br><span class="line"></span><br><span class="line"><span class="comment">#  解压到指定目录下</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="服务器的重启关机命令"><a href="#服务器的重启关机命令" class="headerlink" title="服务器的重启关机命令"></a>服务器的重启关机命令</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@izwz95cti43o6afbuqzj1tz hjp]<span class="comment"># shutdown -r now </span></span><br><span class="line"><span class="comment"># 马上重启服务器</span></span><br><span class="line">shutdown [选项] 时间</span><br><span class="line">选项：</span><br><span class="line">    -c 取消上一次关机命令</span><br><span class="line">    -h  关机</span><br><span class="line">    -r 重启</span><br></pre></td></tr></table></figure>
+<h4 id="退出登录命令"><a href="#退出登录命令" class="headerlink" title="退出登录命令"></a>退出登录命令</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@izwz95cti43o6afbuqzj1tz hjp]<span class="comment"># logoout</span></span><br><span class="line"><span class="comment">#退出登录的服务器。</span></span><br></pre></td></tr></table></figure>
+<h4 id="修改文件权限chmod"><a href="#修改文件权限chmod" class="headerlink" title="修改文件权限chmod"></a>修改文件权限chmod</h4><p>操作对象who可是下述字母中的任一个或者它们的组合：</p>
+<p>u 表示“用户（user）”，即文件或目录的所有者。<br>g 表示“同组（group）用户”，即与文件属主有相同组ID的所有用户。<br>o 表示“其他（others）用户”。<br>a 表示“所有（all）用户”。它是系统默认值。<br>操作符号可以是：</p>
+<p>+ 添加某个权限。<br>– 取消某个权限。<br>= 赋予给定权限并取消其他所有权限（如果有的话）。<br>设置mode所表示的权限可用下述字母的任意组合：<br>r 可读。<br>w 可写。<br>x 可执行。<br>X 只有目标文件对某些用户是可执行的或该目标文件是目录时才追加x 属性。<br>s 在文件执行时把进程的属主或组ID置为该文件的文件属主。方式“u＋s”设置文件的用户ID位，“g＋s”设置组ID位。<br>t 保存程序的文本到交换设备上。<br>u 与文件属主拥有一样的权限。<br>g 与和文件属主同组的用户拥有一样的权限。<br>o 与其他用户拥有一样的权限。<br>-c : 若该档案权限确实已经更改，才显示其更改动作<br>-f : 若该档案权限无法被更改也不要显示错误讯息<br>-v : 显示权限变更的详细资料<br>-R : 对目前目录下的所有档案与子目录进行相同的权限变更(即以递回的方式逐个变更)<br>–help : 显示辅助说明<br>–version : 显示版本<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">$ chmod a+x sort</span><br><span class="line"></span><br><span class="line"><span class="comment"># a 代表所有，给所有用户添加 对文件sort添加可 执行属性</span></span><br><span class="line"></span><br><span class="line">$ chmod a–x mm.txt</span><br><span class="line">$ chmod –x mm.txt</span><br><span class="line">$ chmod ugo–x mm.txt</span><br><span class="line"><span class="comment">#以上这三个命令都是将文件mm.txt的执行权限删除，它设定的对象为所有使用者。</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#数字法设定文件权限</span></span><br><span class="line">$ chmod 644 mm.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># r(Read，读取，权限值为4)：</span></span><br><span class="line"><span class="comment"># w(Write,写入，权限值为2)</span></span><br><span class="line"><span class="comment"># x(eXecute，执行，权限值为1)</span></span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+        <div class="my_post_copyright">
+          <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+          <!-- JS库 sweetalert 可修改路径 -->
+          <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+          <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+          <p><span>本文标题:</span><a href="/2017/09/14/command/">linux 常用命令总结</a></p>
+          <p><span>文章作者:</span><a href="/" title="访问 Tony 的个人博客">Tony</a></p>
+          <p><span>发布时间:</span>2017年09月14日 - 00:09</p>
+          <p><span>最后更新:</span>2018年07月08日 - 18:07</p>
+          <p><span>原始链接:</span><a href="/2017/09/14/command/" title="linux 常用命令总结">http://ictony.github.io/2017/09/14/command/</a>
+            <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://ictony.github.io/2017/09/14/command/"  aria-label="复制成功！"></i></span>
+          </p>
+          <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+        </div>
+    
+</div>
+      
+    </div>
+
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/linux/" rel="tag"><i class="fa fa-tag"></i> linux</a>
+          
+            <a href="/tags/前端/" rel="tag"><i class="fa fa-tag"></i> 前端</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/06/14/es6-module/" rel="next" title="ES6模块化之import和export">
+                <i class="fa fa-chevron-left"></i> ES6模块化之import和export
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/11/14/webpack/" rel="prev" title="webpack 入门学习">
+                webpack 入门学习 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-expand">
+      
+        
+  <div class="bdsharebuttonbox">
+    <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+    <a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a>
+    <a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+    <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+    <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+    <a href="#" class="bds_tieba" data-cmd="tieba" title="分享到百度贴吧"></a>
+    <a href="#" class="bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+    <a href="#" class="bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+    <a href="#" class="bds_more" data-cmd="more"></a>
+    <a class="bds_count" data-cmd="count"></a>
+  </div>
+  <script>
+    window._bd_share_config = {
+      "common": {
+        "bdText": "",
+        "bdMini": "2",
+        "bdMiniList": false,
+        "bdPic": ""
+      },
+      "share": {
+        "bdSize": "16",
+        "bdStyle": "0"
+      },
+      "image": {
+        "viewList": ["tsina", "douban", "sqq", "qzone", "weixin", "twi", "fbook"],
+        "viewText": "分享到：",
+        "viewSize": "16"
+      }
+    }
+  </script>
+
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/autho.png"
+                alt="Tony" />
+            
+              <p class="site-author-name" itemprop="name">Tony</p>
+              <p class="site-description motion-element" itemprop="description">罐头是1810年发明出来的，可是开罐器呢，却在1858年才发明出来。有时就是这样，重要的东西可能迟来一步，但却一定会到。生活和爱情，都是如此。程序，当然也不例外。</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/ICTony" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#linux-–-gt-centos-常用命令总结"><span class="nav-number">1.</span> <span class="nav-text">linux –&gt; centos 常用命令总结</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#命令的基本格式"><span class="nav-number">2.</span> <span class="nav-text">命令的基本格式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#文件的处理命令"><span class="nav-number">3.</span> <span class="nav-text">文件的处理命令</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#查询目录中的命令-ls"><span class="nav-number">3.1.</span> <span class="nav-text">查询目录中的命令 ls</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#文件类型"><span class="nav-number">3.2.</span> <span class="nav-text">文件类型</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#目录命令"><span class="nav-number">3.3.</span> <span class="nav-text">目录命令</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#创建目录-mkdir-（英文名：-make-directories）"><span class="nav-number">3.3.1.</span> <span class="nav-text">创建目录 mkdir （英文名： make directories）</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#切换目录"><span class="nav-number">3.3.2.</span> <span class="nav-text">切换目录</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#删除空白目录"><span class="nav-number">3.3.3.</span> <span class="nav-text">删除空白目录</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#复制命令"><span class="nav-number">3.3.4.</span> <span class="nav-text">复制命令</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#剪切或改名命令"><span class="nav-number">3.3.5.</span> <span class="nav-text">剪切或改名命令</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#文件的软连接和硬链接"><span class="nav-number">3.3.6.</span> <span class="nav-text">文件的软连接和硬链接</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#文件的搜索命令"><span class="nav-number">4.</span> <span class="nav-text">文件的搜索命令</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#locate命令"><span class="nav-number">4.1.</span> <span class="nav-text">locate命令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#命令搜索命令whereis-和which"><span class="nav-number">4.2.</span> <span class="nav-text">命令搜索命令whereis 和which</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#文件搜索命令find"><span class="nav-number">4.3.</span> <span class="nav-text">文件搜索命令find</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#字符串搜索命令grep"><span class="nav-number">4.4.</span> <span class="nav-text">字符串搜索命令grep</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#帮助命令"><span class="nav-number">5.</span> <span class="nav-text">帮助命令</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#man-帮助命令"><span class="nav-number">5.1.</span> <span class="nav-text">man 帮助命令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#其他帮助命令"><span class="nav-number">5.2.</span> <span class="nav-text">其他帮助命令</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#文件压缩和解压"><span class="nav-number">6.</span> <span class="nav-text">文件压缩和解压</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#zip-格式压缩和解压缩"><span class="nav-number">6.1.</span> <span class="nav-text">.zip 格式压缩和解压缩</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#gz-格式解压缩和解压缩"><span class="nav-number">6.2.</span> <span class="nav-text">.gz 格式解压缩和解压缩</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#bz2-格式解压缩"><span class="nav-number">6.3.</span> <span class="nav-text">.bz2 格式解压缩</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#打包命令tar和解答打包命令"><span class="nav-number">6.4.</span> <span class="nav-text">打包命令tar和解答打包命令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#tar-gz-压缩格式"><span class="nav-number">6.5.</span> <span class="nav-text">.tar.gz 压缩格式</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#服务器的重启关机命令"><span class="nav-number">7.</span> <span class="nav-text">服务器的重启关机命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#退出登录命令"><span class="nav-number">8.</span> <span class="nav-text">退出登录命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#修改文件权限chmod"><span class="nav-number">9.</span> <span class="nav-text">修改文件权限chmod</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Tony</span>
+
+  
+</div>
+
+<!-- 
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+ 
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+-->
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
